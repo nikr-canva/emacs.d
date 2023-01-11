@@ -29,7 +29,7 @@
 (defun light ()
   "Activate a light color theme."
   (interactive)
-  (setq custom-enabled-themes '(sanityinc-tomorrow-day))
+  (setq custom-enabled-themes '(sanityinc-tomorrow-solarized-light))
   (reapply-themes))
 
 (defun dark ()
