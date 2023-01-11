@@ -15,6 +15,7 @@
 
 (when (maybe-require-package 'magit)
   (setq-default magit-diff-refine-hunk 'all)
+  (setq magit-log-section-commit-count 15)
 
   (sanityinc/fullframe-mode 'magit-status-mode)
 
