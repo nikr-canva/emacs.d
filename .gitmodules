@@ -1,0 +1,3 @@
+[submodule "site-lisp/eshell-p10k"]
+	path = site-lisp/eshell-p10k
+	url = https://github.com/elken/eshell-p10k.git
