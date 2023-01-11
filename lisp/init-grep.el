@@ -17,6 +17,7 @@
            (maybe-require-package 'ag))
   (require-package 'wgrep-ag)
   (setq-default ag-highlight-search t)
+  (setq ag-reuse-buffers t)
   (global-set-key (kbd "M-?") 'ag-project))
 
 (when (and (executable-find "rg")
