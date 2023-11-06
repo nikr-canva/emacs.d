@@ -18,6 +18,10 @@
 (with-eval-after-load 'ag 
   (add-to-list 'ag-ignore-list "projectile.cache"))
 
+;;; Bazel
+
+(require-package 'bazel)
+
 (provide 'init-local)
 
 ;;; init-local.el ends here
