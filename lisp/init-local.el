@@ -22,6 +22,16 @@
 
 (require-package 'bazel)
 
+;;; Paradox
+
+(when (maybe-require-package 'paradox)
+  (setq-default paradox-execute-asynchronously t)
+  (paradox-enable)
+  )
+
+;;; Make it not complain when opening big TAGS files
+(setq large-file-warning-threshold 1200000000)
+
 (provide 'init-local)
 
 ;;; init-local.el ends here
