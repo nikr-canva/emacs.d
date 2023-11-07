@@ -31,9 +31,5 @@
             (lambda ()
               (add-hook 'eldoc-documentation-functions 'flymake-eldoc-function nil t))))
 
-(when  (maybe-require-package 'flymake-shellcheck)
-  (add-hook 'sh-mode-hook 'flymake-shellcheck-load)
-  (setq-default 'flymake-shellcheck-allow-external-files t))
-
 (provide 'init-flymake)
 ;;; init-flymake.el ends here
