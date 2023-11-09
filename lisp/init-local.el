@@ -20,7 +20,7 @@
 
 ;;; Bazel
 
-(require-package 'bazel)
+(maybe-require-package 'bazel)
 
 ;;; Paradox
 
