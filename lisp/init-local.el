@@ -26,11 +26,21 @@
 
 (when (maybe-require-package 'paradox)
   (setq-default paradox-execute-asynchronously t)
-  (paradox-enable)
-  )
+  (paradox-enable))
 
 ;;; Make it not complain when opening big TAGS files
 (setq large-file-warning-threshold 1200000000)
+
+;;; jsonnet-mode
+(when (require-package 'jsonnet-mode)
+  (with-eval-after-load 'eglot
+    (add-to-list  'eglot-server-programs
+                  '(jsonnet-mode . ("jsonnet-lsp")))
+    )
+  (add-hook 'jsonnet-mode-hook 'eglot-ensure))
+
+(when (require-package 'kubernetes)
+  (fset 'k8s 'kubernetes-overview))
 
 (provide 'init-local)
 
