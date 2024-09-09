@@ -35,7 +35,7 @@
 (when (require-package 'jsonnet-mode)
   (with-eval-after-load 'eglot
     (add-to-list  'eglot-server-programs
-                  '(jsonnet-mode . ("jsonnet-lsp")))
+                  '(jsonnet-mode . ("jsonnet-lsp" "lsp")))
     )
   (add-hook 'jsonnet-mode-hook 'eglot-ensure))
 
