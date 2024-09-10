@@ -15,7 +15,7 @@
   (treemacs-resize-icons 12)
   )
 
-(with-eval-after-load 'ag 
+(with-eval-after-load 'ag
   (add-to-list 'ag-ignore-list "projectile.cache"))
 
 ;;; Bazel
@@ -41,6 +41,9 @@
 
 (when (require-package 'kubernetes)
   (fset 'k8s 'kubernetes-overview))
+
+;;; org-mode
+(setq org-agenda-files (list "~/work/notes.org"))
 
 (provide 'init-local)
 
