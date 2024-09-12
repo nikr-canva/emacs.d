@@ -44,6 +44,13 @@
 
 ;;; org-mode
 (setq org-agenda-files (list "~/work/notes.org"))
+(when (require-package 'go-mode)
+  (with-eval-after-load 'eglot
+    (add-to-list  'eglot-server-programs
+                  '(go-mode . ("gopls" "serve")))
+    )
+  (add-hook 'jsonnet-mode-hook 'eglot-ensure))
+
 
 (provide 'init-local)
 
