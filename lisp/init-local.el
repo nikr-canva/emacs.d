@@ -31,6 +31,8 @@
 ;;; Make it not complain when opening big TAGS files
 (setq large-file-warning-threshold 1200000000)
 
+(setq desktop-restore-eager 5)
+
 ;;; jsonnet-mode
 (when (require-package 'jsonnet-mode)
   (with-eval-after-load 'eglot
@@ -49,7 +51,7 @@
     (add-to-list  'eglot-server-programs
                   '(go-mode . ("gopls" "serve")))
     )
-  (add-hook 'jsonnet-mode-hook 'eglot-ensure))
+  (add-hook 'go-mode-hook 'eglot-ensure))
 
 
 (provide 'init-local)
