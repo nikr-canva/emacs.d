@@ -45,13 +45,39 @@
   (fset 'k8s 'kubernetes-overview))
 
 ;;; org-mode
-(setq org-agenda-files (list "~/work/notes.org"))
+(setq org-agenda-files (list "~/work/notes.org" "~/work/org/"))
+(require 'org-protocol)
+(add-to-list 'org-capture-templates
+             '("cm" "chainguard migration"
+               entry (file "~/work/org/projects/chainguard.org")
+               "* TODO {project name}
+    :PROPERTIES:
+    :CREATED: %U
+    :END:
+    ** Problems
+    - [ ]
+    ** Links"
+               :kill-buffer t
+               :prepend t
+               :empty-lines 2) t)
+
+;; (with-eval-after-load 'org
+;;   (when   (maybe-require-package 'org-beautify-theme)
+;;     (load-theme 'org-beautify)
+;;     (enable-theme 'org-beautify)))
+
+
 (when (require-package 'go-mode)
   (with-eval-after-load 'eglot
     (add-to-list  'eglot-server-programs
                   '(go-mode . ("gopls" "serve")))
     )
   (add-hook 'go-mode-hook 'eglot-ensure))
+
+;;; TRAMP for devboxes
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+(setq tramp-terminal-type "tramp")
+
 
 
 (provide 'init-local)

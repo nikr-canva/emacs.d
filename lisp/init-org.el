@@ -161,7 +161,7 @@ typical word processor."
 ;;; To-do settings
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "INPROGRESS(p!)" "BLOCKED(b@/!)" "|" "DONE(d!/!)")
+      (quote ((sequence "TODO(t)" "NEXT(n!)" "INPROGRESS(p!)" "BLOCKED(b@/!)" "|" "HAND_OVER(h)" "DONE(d!/!)")
               (sequence "PROJECT(p)" "PROJECT_BLOCKED(B@/!)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
               (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
       org-todo-repeat-to-state "NEXT")
@@ -384,7 +384,6 @@ typical word processor."
       (shell . t)
       (sql . t)
       (sqlite . t)))))
-
 
 (provide 'init-org)
 ;;; init-org.el ends here
