@@ -26,6 +26,7 @@
 
 (when (maybe-require-package 'paradox)
   (setq-default paradox-execute-asynchronously t)
+  (setq-default paradox-column-width-package 30)
   (paradox-enable))
 
 ;;; Make it not complain when opening big TAGS files
