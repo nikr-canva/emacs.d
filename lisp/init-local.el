@@ -79,6 +79,25 @@
 (setq tramp-terminal-type "tramp")
 
 
+(defun nikr--1password-construct-query-path
+    (_backend _type host user _port)
+  "Construct the full entry-path for the 1password entry for HOST and USER.
+Usually starting with the `auth-source-1password-vault', followed
+by host and user, but with '^' replaced in the user name by '_'."
+  (mapconcat #'identity
+             (list auth-source-1password-vault host
+                   (string-replace "^" "_" user))
+             "/"))
+
+;;; 1password integration
+(when (maybe-require-package 'auth-source-1password)
+  (setq auth-source-1password-vault "Employee")
+  (setq auth-source-1password-construct-secret-reference
+        'nikr--1password-construct-query-path )
+  (auth-source-1password-enable))
+
+
+
 
 (provide 'init-local)
 
