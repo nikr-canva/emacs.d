@@ -60,7 +60,8 @@
     ** Links"
                :kill-buffer t
                :prepend t
-               :empty-lines 2) t)
+               :empty-lines 2)
+             t)
 
 ;; (with-eval-after-load 'org
 ;;   (when   (maybe-require-package 'org-beautify-theme)
