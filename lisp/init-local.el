@@ -14,8 +14,7 @@
   (setq-default treemacs-project-follow-mode)
   (treemacs-resize-icons 10)
   (setq-default treemacs-text-scale 1)
-  (setq-default treemacs-indentation 1)
-  )
+  (setq-default treemacs-indentation 1))
 
 (with-eval-after-load 'ag
   (add-to-list 'ag-ignore-list "projectile.cache"))
@@ -41,9 +40,8 @@
 ;;; jsonnet-mode
 (when (require-package 'jsonnet-mode)
   (with-eval-after-load 'eglot
-    (add-to-list  'eglot-server-programs
-                  '(jsonnet-mode . ("jsonnet-lsp" "lsp")))
-    )
+    (add-to-list
+     'eglot-server-programs '(jsonnet-mode . ("jsonnet-lsp" "lsp"))))
   (add-hook 'jsonnet-mode-hook 'eglot-ensure))
 
 (when (require-package 'kubernetes)
@@ -53,8 +51,10 @@
 (setq org-agenda-files (list "~/work/notes.org" "~/work/org/"))
 (require 'org-protocol)
 (add-to-list 'org-capture-templates
-             '("cm" "chainguard migration"
-               entry (file "~/work/org/projects/chainguard.org")
+             '("cm"
+               "chainguard migration"
+               entry
+               (file "~/work/org/projects/chainguard.org")
                "* TODO {project name}
     :PROPERTIES:
     :CREATED: %U
@@ -75,9 +75,8 @@
 
 (when (require-package 'go-mode)
   (with-eval-after-load 'eglot
-    (add-to-list  'eglot-server-programs
-                  '(go-mode . ("gopls" "serve")))
-    )
+    (add-to-list
+     'eglot-server-programs '(go-mode . ("gopls" "serve"))))
   (add-hook 'go-mode-hook 'eglot-ensure))
 
 ;;; TRAMP for devboxes
@@ -91,15 +90,17 @@
 Usually starting with the `auth-source-1password-vault', followed
 by host and user, but with '^' replaced in the user name by '_'."
   (mapconcat #'identity
-             (list auth-source-1password-vault host
-                   (string-replace "^" "_" user))
+             (list
+              auth-source-1password-vault
+              host
+              (string-replace "^" "_" user))
              "/"))
 
 ;;; 1password integration
 (when (maybe-require-package 'auth-source-1password)
   (setq auth-source-1password-vault "Employee")
   (setq auth-source-1password-construct-secret-reference
-        'nikr--1password-construct-query-path )
+        'nikr--1password-construct-query-path)
   (auth-source-1password-enable))
 
 
@@ -108,6 +109,9 @@ by host and user, but with '^' replaced in the user name by '_'."
   (setq-default orderless-matching-styles
                 '(orderless-literal orderless-regexp orderless-flex)))
 
+;; autoformat for lisp files. mainly this one.
+(when (maybe-require-package 'elisp-autofmt)
+  (add-hook 'emacs-lisp-mode-hook 'elisp-autofmt-mode))
 
 (provide 'init-local)
 
