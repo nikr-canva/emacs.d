@@ -103,6 +103,10 @@ by host and user, but with '^' replaced in the user name by '_'."
   (auth-source-1password-enable))
 
 
+;; make orderless completion style more fuzzy by default
+(when (maybe-require-package 'orderless)
+  (setq-default orderless-matching-styles
+                '(orderless-literal orderless-regexp orderless-flex)))
 
 
 (provide 'init-local)
