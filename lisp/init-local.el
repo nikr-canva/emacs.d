@@ -12,7 +12,9 @@
   (require-package 'treemacs-projectile)
   (setq-default treemacs-display-current-project-exclusively t)
   (setq-default treemacs-project-follow-mode)
-  (treemacs-resize-icons 12)
+  (treemacs-resize-icons 10)
+  (setq-default treemacs-text-scale 1)
+  (setq-default treemacs-indentation 1)
   )
 
 (with-eval-after-load 'ag
