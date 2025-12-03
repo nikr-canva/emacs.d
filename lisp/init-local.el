@@ -18,6 +18,8 @@
 (with-eval-after-load 'ag
   (add-to-list 'ag-ignore-list "projectile.cache"))
 
+(require-package 'projectile-speedbar)
+
 ;;; Bazel
 
 (maybe-require-package 'bazel)
