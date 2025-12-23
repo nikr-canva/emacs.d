@@ -93,7 +93,8 @@
     (_backend _type host user _port)
   "Construct the full entry-path for the 1password entry for HOST and USER.
 Usually starting with the `auth-source-1password-vault', followed
-by host and user, but with '^' replaced in the user name by '_'."
+by host and user, but with '^' replaced in the user name by '_'.
+This is particularly so that emacs forge will work."
   (mapconcat #'identity
              (list
               auth-source-1password-vault
