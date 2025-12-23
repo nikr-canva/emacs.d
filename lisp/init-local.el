@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(setq-default fill-column 100)
+
 ;;; Treemacs
 (when (maybe-require-package 'treemacs)
   (require-package 'treemacs-projectile)
