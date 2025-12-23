@@ -116,6 +116,14 @@ by host and user, but with '^' replaced in the user name by '_'."
 (when (maybe-require-package 'elisp-autofmt)
   (add-hook 'emacs-lisp-mode-hook 'elisp-autofmt-mode))
 
+
+(when (maybe-require-package 'smart-mode-line)
+  ;; (if (maybe-require-package 'smart-mode-line-powerline-theme
+  ;;    (setq sml/theme 'smart-mode-line-powerline)
+  (setq sml/theme 'dark)
+  ;;)
+  (sml/setup))
+
 (provide 'init-local)
 
 ;;; init-local.el ends here
