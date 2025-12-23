@@ -77,7 +77,10 @@
   (with-eval-after-load 'eglot
     (add-to-list
      'eglot-server-programs '(go-mode . ("gopls" "serve"))))
-  (add-hook 'go-mode-hook 'eglot-ensure))
+  (add-hook 'go-mode-hook 'eglot-ensure)
+  (with-eval-after-load 'flymake-flycheck
+    (add-to-list 'flycheck-disabled-checkers 'go-gofmt))
+  )
 
 ;;; TRAMP for devboxes
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
