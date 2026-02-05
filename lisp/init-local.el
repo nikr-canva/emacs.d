@@ -129,6 +129,22 @@ This is particularly so that emacs forge will work."
   ;;)
   (sml/setup))
 
+(when (maybe-require-package 'ai-code)
+  (require-package 'vterm)
+  (ai-code-set-backend 'claude-code)
+  ;; use the otter wrapper that authenticates properly and has MCPs set up already.
+  (setq ai-code-claude-code-program  "otter")
+  (setq ai-code-claude-code-program-switches '( "claude-code" ))
+  (setq ai-code-backends-infra-terminal-backend 'eat)
+  (global-set-key (kbd "C-c i") #'ai-code-menu)
+  (ai-code-prompt-filepath-completion-mode 1)
+  (with-eval-after-load 'magit
+    (ai-code-magit-setup-transients))
+  (setq ai-code-notifications-enabled t)
+  (setq ai-code-notifications-show-on-response t))
+
+
+
 (provide 'init-local)
 
 ;;; init-local.el ends here
