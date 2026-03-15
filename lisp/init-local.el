@@ -149,6 +149,11 @@ This is particularly so that emacs forge will work."
   (add-hook 'forge-post-mode-hook (lambda () (set-fill-column 72)))
   (setq-default forge-pull-notifications "Pull notifications"))
 
+(when (maybe-require-package 'org-alert)
+  (when (eq system-type 'darwin)
+    (setq-default alert-default-style 'osx-notifier)))
+
+
 (provide 'init-local)
 
 ;;; init-local.el ends here
