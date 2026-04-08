@@ -13,6 +13,14 @@
 
 (setq-default fill-column 100)
 
+;;; We need some extra env vars so git works properly.
+(require-package 'exec-path-from-shell)
+
+(with-eval-after-load 'exec-path-from-shell
+  (dolist (var '("CODER_AGENT_URL" "CODER_AGENT_AUTH" "CODER_AGENT_TOKEN" "GIT_ASKPASS" "GIT_SSH_COMMAND"))
+    (add-to-list 'exec-path-from-shell-variables var)))
+(exec-path-from-shell-initialize)
+
 ;;; Treemacs
 (when (maybe-require-package 'treemacs)
   (require-package 'treemacs-projectile)
