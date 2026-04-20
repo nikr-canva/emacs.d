@@ -70,6 +70,7 @@
 
 
 (when (require-package 'go-mode)
+  (require-package 'eglot)
   (with-eval-after-load 'eglot
     (add-to-list
      'eglot-server-programs '(go-mode . ("gopls" "serve"))))
