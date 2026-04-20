@@ -50,18 +50,17 @@
   (fset 'k8s 'kubernetes-overview))
 
 ;;; org-mode
-(setq org-agenda-files (list "~/work/notes.org" "~/work/org/"))
+(setq org-agenda-files (list "~/work/notes.org" "~/work/org/" "~/work/nikr/org/"))
 (require 'org-protocol)
-(append org-capture-templates
-        '(("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) ")
-          ("m" "Meeting Notes" entry (file+olp+datetree "~/work/org/meetings.org")
-           "* With %^{ATTENDEES} about %^{TOPIC} :%^{TYPE|1on1|handover|}:
+(add-to-list 'org-capture-templates '("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) "))
+(add-to-list 'org-capture-templates '("m" "meeting notes" entry (file+olp+datetree "~/work/org/meetings.org")
+                                      "* With %^{ATTENDEES} about %^{TOPIC} :%^{TYPE|1on1|handover|}:
 :PROPERTIES:
 :ATTENDEES: %\\1
 :TOPIC: %\\2
+:TYPE: %\\3
 :END:
-%?"  :jump-to-captured t)
-          ))
+%?"  :jump-to-captured t))
 
 ;; (with-eval-after-load 'org
 ;;   (when   (maybe-require-package 'org-beautify-theme)
