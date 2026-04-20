@@ -7,6 +7,10 @@
 
 ;;; Code:
 
+;;; <OPTION> as SUPER (S-*).
+(when *is-a-mac*
+  (setq mac-option-modifier 'super))
+
 (setq-default fill-column 100)
 
 ;;; Treemacs
