@@ -53,10 +53,11 @@
 
 ;;; jsonnet-mode
 (when (require-package 'jsonnet-mode)
-  (with-eval-after-load 'eglot
-    (add-to-list
-     'eglot-server-programs '(jsonnet-mode . ("jsonnet-lsp" "lsp"))))
   (add-hook 'jsonnet-mode-hook 'eglot-ensure))
+
+(with-eval-after-load 'eglot
+  (add-to-list
+   'eglot-server-programs '(jsonnet-mode . ("jsonnet-lsp" "lsp"))))
 
 (when (require-package 'kubernetes)
   (fset 'k8s 'kubernetes-overview))
@@ -100,7 +101,7 @@
   "Construct the full entry-path for the 1password entry for HOST and USER.
 Usually starting with the `auth-source-1password-vault', followed
 by host and user, but with '^' replaced in the user name by '_'.
-This is particularly so that emacs forge will work."
+This is particularly so that Emacs forge will work."
   (mapconcat #'identity
              (list
               auth-source-1password-vault
@@ -189,6 +190,16 @@ This is particularly so that emacs forge will work."
 (when (maybe-require-package 'org-alert)
   (when (eq system-type 'darwin)
     (setq-default alert-default-style 'osx-notifier)))
+
+;; terraform
+(when (require-package 'terraform-mode)
+  (when (maybe-require-package 'company-terraform)
+    (company-terraform-init)
+    (add-hook 'terraform-mode-hook
+              (company-mode t)))
+  (when (maybe-require-package 'eglot)
+    (add-hook 'terraform-mode-hook 'eglot-ensure)))
+
 
 
 (provide 'init-local)
