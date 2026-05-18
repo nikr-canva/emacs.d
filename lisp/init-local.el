@@ -132,18 +132,41 @@ This is particularly so that emacs forge will work."
   ;; use the otter wrapper that authenticates properly and has MCPs set up already.
   (setq ai-code-claude-code-program  "otter")
   (setq ai-code-claude-code-program-switches '( "claude-code" ))
-  (setq ai-code-backends-infra-terminal-backend 'eat)
-  (global-set-key (kbd "C-c i") #'ai-code-menu)
+  (setq ai-code-backends-infra-terminal-backend 'vterm)
+  (global-set-key (kbd "C-c C-i") #'ai-code-menu)
   (ai-code-prompt-filepath-completion-mode 1)
-  (with-eval-after-load 'magit
-    (ai-code-magit-setup-transients))
+  ;; (with-eval-after-load 'magit
+  ;;   (ai-code-magit-setup-transients))
   (setq ai-code-notifications-enabled t)
   (setq ai-code-notifications-show-on-response t))
 
 (with-eval-after-load 'ai-code
-  (ai-code-set-backend 'claude-code))
+  (ai-code-set-backend "claude-code.el"))
+
+;; This claude-code-ide seems to be the one that has the scrolling issue.
+;; (when (use-package claude-code-ide
+;;         :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+;;         :bind ("C-c i" . claude-code-ide-menu) ; Set your favorite keybinding
+;;         :config
+;;         (claude-code-ide-emacs-tools-setup))
+;;   (setq claude-code-ide-cli-path "otter")
+;;   (setq claude-code-ide-cli-extra-flags "claude-code")
+;;   (setq claude-code-ide-window-width 300)
+;;   ;; (global-set-key (kbd "C-c i") #'claude-code-ide-menu)
+;;   )
 
 
+;; (with-eval-after-load 'claude-code-ide (claude-code-ide-emacs-tools-setup))
+
+(when (use-package mcp-server
+        :vc (:url "https://github.com/rhblind/emacs-mcp-server" :rev :newest)
+        :config (add-hook 'emacs-startup-hook #'mcp-server-start-unix)
+        )
+  (setq mcp-server-emacs-tools-enabled 'all)
+  (setq mcp-server-security-prompt-for-permissions t)
+  (setq mcp-server-security-sensitive-file-patterns
+        '("~/.authinfo*" "~/.netrc*" "~/.ssh/" "~/.gnupg/"))
+  )
 
 (defun mb/forge-browse-after-create-pr (value headers status req)
   (if-let ((url (assoc 'html_url value)))
