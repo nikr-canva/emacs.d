@@ -41,10 +41,10 @@
 
 ;;; Paradox
 
-(when (maybe-require-package 'paradox)
-  (setq-default paradox-execute-asynchronously t)
-  (setq-default paradox-column-width-package 30)
-  (paradox-enable))
+;; (when (maybe-require-package 'paradox)
+;;   (setq-default paradox-execute-asynchronously t)
+;;   (setq-default paradox-column-width-package 30)
+;;   (paradox-enable))
 
 ;;; Make it not complain when opening big TAGS files
 (setq large-file-warning-threshold 1200000000)
@@ -67,7 +67,7 @@
 (require 'org-protocol)
 (add-to-list 'org-capture-templates '("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) "))
 (add-to-list 'org-capture-templates '("m" "meeting notes" entry (file+olp+datetree "~/work/org/meetings.org")
-                                      "* With %^{ATTENDEES} about %^{TOPIC} :%^{TYPE|1on1|handover|}:
+                                      "* With %^{ATTENDEES} about %^{TOPIC} :%^{TYPE|1on1|handover|sync|ops|leadership}:
 :PROPERTIES:
 :ATTENDEES: %\\1
 :TOPIC: %\\2
@@ -203,6 +203,10 @@ This is particularly so that Emacs forge will work."
   (when (maybe-require-package 'eglot)
     (add-hook 'terraform-mode-hook 'eglot-ensure)))
 
+(when (require-package 'git-link)
+  (global-set-key (kbd "C-c n l") #'git-link-dispatch--copy)
+  (global-set-key (kbd "C-c n o") #'git-link-dispatch--open)
+  )
 
 
 (provide 'init-local)
