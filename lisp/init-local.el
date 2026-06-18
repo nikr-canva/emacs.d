@@ -217,6 +217,15 @@ This is particularly so that Emacs forge will work."
   (global-set-key (kbd "C-c n o") #'git-link-dispatch--open)
   )
 
+;; My google sync things
+(add-to-list 'load-path "/Users/nikr/src/org-gws")
+(require 'org-gws)
+
+(setq org-gws-calendars '("nikr@canva.com"))   ; add the calendar names you want
+(setq org-gws-output-file "~/work/org/gcal.org")
+(setq org-gws-command '("otter" "gws"))
+(org-gws-auto-sync-mode 1)                       ; optional: keep it fresh automatically
+
 
 (provide 'init-local)
 
