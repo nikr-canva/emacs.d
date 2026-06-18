@@ -65,15 +65,24 @@
 ;;; org-mode
 (setq org-agenda-files (list "~/work/notes.org" "~/work/org/" "~/work/nikr/org/"))
 (require 'org-protocol)
-(add-to-list 'org-capture-templates '("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) "))
-(add-to-list 'org-capture-templates '("m" "meeting notes" entry (file+olp+datetree "~/work/org/meetings.org")
-                                      "* With %^{ATTENDEES} about %^{TOPIC} :%^{TYPE|1on1|handover|sync|ops|leadership}:
+(setq org-capture-templates
+      `(("t" "todo" entry (file+olp+datetree "~/work/notes.org" "Tasks")
+         "* NEXT %?\n%U\n" :clock-resume t)
+        ("n" "note" entry (file "~/work/notes.org")
+         "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+        ("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) ")
+        ("m" "meeting notes" entry (file+olp+datetree "~/work/org/meetings.org")
+         "* With %^{ATTENDEES} about %^{TOPIC} [/] :%^{TYPE|1on1|sync|ops|leadership}:
 :PROPERTIES:
 :ATTENDEES: %\\1
 :TOPIC: %\\2
 :TYPE: %\\3
 :END:
-%?"  :jump-to-captured t))
+** Notes
+%?
+** Actions
+- [ ]"  :jump-to-captured t)
+        ))
 
 ;; (with-eval-after-load 'org
 ;;   (when   (maybe-require-package 'org-beautify-theme)
