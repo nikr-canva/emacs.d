@@ -66,14 +66,25 @@
 (when (require-package 'kubernetes)
   (fset 'k8s 'kubernetes-overview))
 
+
 ;;; org-mode
 (setq org-agenda-files (list "~/work/notes.org" "~/work/org/" "~/work/nikr/org/"))
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(defun nikr/add-note (type text &optional tag)
+  "Captures an org mode note using the template key TYPE with content TEXT, labelled with TAGs."
+  (interactive "sType:\nsBody:\nsTag")
+  (org-capture-string (concat text " " (unless (string-empty-p tag) (concat ":" tag ": "))) type)
+  )
+
 (require 'org-protocol)
 (setq org-capture-templates
-      `(("t" "todo" entry (file+olp+datetree "~/work/notes.org" "Tasks")
-         "* NEXT %?\n%U\n" :clock-resume t)
-        ("n" "note" entry (file "~/work/notes.org")
-         "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+      `(("t" "todo" entry (file+olp "~/work/org/notes.org" "Todos")
+         "* TODO %?\n%T\n" :clock-resume t)
+        ("n" "note" entry (file+olp "~/work/org/notes.org" "Notes")
+         "* %? \n%T\n%a\n" :clock-resume t :prepend t)
+        ("g" "G&I note" entry (file+olp+datetree "~/work/org/gandi.org")
+         "* %? :%^{WHO}:" :jump-to-captured t :tree-type month)
         ("l" "Link" entry (file+olp+datetree "~/work/notes.org" "Links" ) "Link: %a\n) ")
         ("m" "meeting notes" entry (file+olp+datetree "~/work/org/meetings.org")
          "* With %^{ATTENDEES} about %^{TOPIC} [/] :%^{TYPE|1on1|sync|ops|leadership}:
@@ -86,12 +97,23 @@
 %?
 ** Actions
 - [ ]"  :jump-to-captured t)
+        ("a" "automated templates")
+        ("an" "note" entry (file+olp "~/work/org/notes.org" "Notes")
+         "* %i\n%T\n%a\n" :immediate-finish t :prepend t)
+        ("ag" "G&I note" entry (file+olp+datetree "~/work/org/gandi.org")
+         "* %i" :tree-type month :immediate-finish t)
+        ("at" "todo" entry (file+olp "~/work/org/notes.org" "Todos")
+         "* TODO %i\n%T\n" :clock-resume t :immediate-finish t)
         ))
 
-;; (with-eval-after-load 'org
-;;   (when   (maybe-require-package 'org-beautify-theme)
-;;     (load-theme 'org-beautify)
-;;     (enable-theme 'org-beautify)))
+(with-eval-after-load 'org
+  (when  (maybe-require-package 'org-beautify-theme)
+    (load-theme 'org-beautify))
+  (when (maybe-require-package 'org-journal)
+    (setq org-journal-dir "~/work/org/journal")
+    (setq org-journal-file-type 'weekly)
+    )
+  )
 
 
 (when (require-package 'go-mode)
