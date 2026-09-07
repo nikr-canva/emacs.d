@@ -13,6 +13,10 @@
 
 (setq-default fill-column 100)
 
+;;; Theme
+(when (maybe-require-package 'color-theme-sanityinc-tomorrow)
+  (load-theme 'sanityinc-tomorrow-night)) 
+
 ;;; We need some extra env vars so git works properly.
 (require-package 'exec-path-from-shell)
 
