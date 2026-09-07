@@ -174,8 +174,6 @@ This is particularly so that Emacs forge will work."
 (when (require-package 'ai-code)
   (require-package 'vterm)
   ;; use the otter wrapper that authenticates properly and has MCPs set up already.
-  (setq ai-code-claude-code-program  "otter")
-  (setq ai-code-claude-code-program-switches '( "claude-code" ))
   (if (eq system-type "darwin")
       (setq ai-code-backends-infra-terminal-backend 'vterm)
     (setq ai-code-backends-infra-terminal-backend 'eat))
