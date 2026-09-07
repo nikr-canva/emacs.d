@@ -248,6 +248,9 @@ This is particularly so that Emacs forge will work."
 (setq org-gws-calendars '("nikr@canva.com"))   ; add the calendar names you want
 (setq org-gws-output-file "~/work/org/gcal.org")
 (setq org-gws-command '("otter" "gws"))
+(setq org-gws-past-days 5)
+(setq org-gws-future-days 30)
+(setq org-gws-include-description 1)
 (org-gws-auto-sync-mode 1)                       ; optional: keep it fresh automatically
 
 
