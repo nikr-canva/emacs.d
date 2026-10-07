@@ -135,12 +135,16 @@
 Usually starting with the `auth-source-1password-vault', followed
 by host and user, but with '^' replaced in the user name by '_'.
 This is particularly so that Emacs forge will work."
-  (mapconcat #'identity
-             (list
-              auth-source-1password-vault
-              host
-              (string-replace "^" "_" user))
-             "/"))
+  ;; Return nil when HOST or USER is missing (e.g. TRAMP host completion
+  ;; queries auth-source with no user); `auth-source-1password-search'
+  ;; treats a nil reference as "skip this backend".
+  (when (and (stringp host) (stringp user))
+    (mapconcat #'identity
+               (list
+                auth-source-1password-vault
+                host
+                (string-replace "^" "_" user))
+               "/")))
 
 ;;; 1password integration
 (when (maybe-require-package 'auth-source-1password)
