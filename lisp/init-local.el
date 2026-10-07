@@ -1,6 +1,4 @@
-;;; init-local.el --- Local additions
-
-
+;;; init-local.el --- Local additions  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 ;;
