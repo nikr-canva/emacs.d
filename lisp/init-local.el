@@ -220,6 +220,7 @@ This is particularly so that Emacs forge will work."
       (browse-url (cdr url))))
 
 
+;; magit forge, not the other one.
 (when (maybe-require-package 'forge)
   (add-hook 'forge-post-submit-callback 'mb/forge-browse-after-create-pr)
   (add-hook 'forge-post-mode-hook (lambda () (set-fill-column 72)))
@@ -254,6 +255,12 @@ This is particularly so that Emacs forge will work."
 (setq org-gws-future-days 30)
 (setq org-gws-include-description 1)
 (org-gws-auto-sync-mode 1)                       ; optional: keep it fresh automatically
+
+
+(when (maybe-require-package 'agent-shell)
+  (setq agent-shell-preferred-agent-config 'claude-code)
+  (setq agent-shell-activity-group-header-label-function
+        #'agent-shell-activity-group-count-label))
 
 
 (provide 'init-local)
