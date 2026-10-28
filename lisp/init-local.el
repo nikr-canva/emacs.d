@@ -41,13 +41,6 @@
 
 (maybe-require-package 'bazel)
 
-;;; Paradox
-
-;; (when (maybe-require-package 'paradox)
-;;   (setq-default paradox-execute-asynchronously t)
-;;   (setq-default paradox-column-width-package 30)
-;;   (paradox-enable))
-
 ;;; Make it not complain when opening big TAGS files
 (setq large-file-warning-threshold 1200000000)
 
@@ -182,37 +175,6 @@ This is particularly so that Emacs forge will work."
   ;;)
   (sml/setup))
 
-(when (require-package 'ai-code)
-  (require-package 'vterm)
-  ;; use the otter wrapper that authenticates properly and has MCPs set up already.
-  (if (eq system-type "darwin")
-      (setq ai-code-backends-infra-terminal-backend 'vterm)
-    (setq ai-code-backends-infra-terminal-backend 'eat))
-  
-  (global-set-key (kbd "C-c C-i") #'ai-code-menu)
-  (ai-code-prompt-filepath-completion-mode 1)
-  ;; (with-eval-after-load 'magit
-  ;;   (ai-code-magit-setup-transients))
-  (setq ai-code-notifications-enabled t)
-  (setq ai-code-notifications-show-on-response t))
-
-(with-eval-after-load 'ai-code
-  (ai-code-set-backend "claude-code.el"))
-
-;; This claude-code-ide seems to be the one that has the scrolling issue.
-;; (when (use-package claude-code-ide
-;;         :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
-;;         :bind ("C-c i" . claude-code-ide-menu) ; Set your favorite keybinding
-;;         :config
-;;         (claude-code-ide-emacs-tools-setup))
-;;   (setq claude-code-ide-cli-path "otter")
-;;   (setq claude-code-ide-cli-extra-flags "claude-code")
-;;   (setq claude-code-ide-window-width 300)
-;;   ;; (global-set-key (kbd "C-c i") #'claude-code-ide-menu)
-;;   )
-
-
-;; (with-eval-after-load 'claude-code-ide (claude-code-ide-emacs-tools-setup))
 
 (when (use-package mcp-server
         :vc (:url "https://github.com/rhblind/emacs-mcp-server" :rev :newest)
@@ -269,8 +231,22 @@ This is particularly so that Emacs forge will work."
 (when (maybe-require-package 'agent-shell)
   (setq agent-shell-preferred-agent-config 'claude-code)
   (setq agent-shell-activity-group-header-label-function
-        #'agent-shell-activity-group-count-label))
+        #'agent-shell-activity-group-count-label)
+  (setopt agent-shell-busy-submit-default-function
+          #'agent-shell-busy-submit-steer)
+  (setopt agent-shell-busy-submit-override-function
+          #'agent-shell-busy-submit-queue)
+  (setopt agent-shell-show-cost-indicator t)
+  (use-package agent-shell-tramp
+    :vc (:url "https://github.com/junyi-hou/agent-shell-tramp" :rev :newest)
+    :after agent-shell
+    :config
+    (agent-shell-tramp-mode 1))
+  )
 
+
+;;; disable all the VC backends otehr than git.
+(setq vc-handled-backends '(Git))
 
 (provide 'init-local)
 
