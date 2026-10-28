@@ -127,6 +127,15 @@
 ;;; TRAMP for devboxes
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 (setq tramp-terminal-type "tramp")
+(customize-set-variable 'tramp-default-method "rpc")
+(setq tramp-copy-size-limit (* 1024 1024) ;; 1MB
+      tramp-verbose 2)
+
+(use-package tramp-rpc
+  :after tramp
+  :vc (:url "https://github.com/ArthurHeymans/emacs-tramp-rpc"
+            :rev :newest
+            :lisp-dir "lisp"))
 
 
 (defun nikr--1password-construct-query-path
